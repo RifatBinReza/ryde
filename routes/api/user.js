@@ -8,6 +8,7 @@ const userController = require("../../controllers/user");
  */
 const schemaValidator = require("../../middlewares/schemaValidator");
 
+router.post("/:id/follow", userController.follow);
 router.get("/:id", userController.get);
 router.put("/:id", schemaValidator.updateUserSchema, userController.update);
 router.delete("/:id", userController.remove);

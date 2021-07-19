@@ -55,12 +55,29 @@ const userRepository = () => {
     });
   };
 
+  const follow = async (userId, followUserId) => {
+    const addToFollowing = {
+      $addToSet: { following: followUserId },
+    };
+
+    await models.user.findOneAndUpdate({ _id: userId }, addToFollowing);
+
+    const addToFollower = {
+      $addToSet: { followers: userId },
+    };
+
+    await models.user.findOneAndUpdate({ _id: followUserId }, addToFollower);
+
+    return [];
+  };
+
   return {
     create,
     update,
     findByEmail,
     findById,
     remove,
+    follow
   };
 };
 

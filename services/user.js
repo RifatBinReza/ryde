@@ -79,7 +79,6 @@ const userService = () => {
     return { user: user, token: token };
   }
 
-  
   const remove = async (_id) => {
     // First check if the user with the email alreay exists or not
     const existingUser = await userRepository.findById(_id);
@@ -92,6 +91,18 @@ const userService = () => {
 
     return user;
   };
+  
+  const follow = async (userId, followUserId) => {
+    // First check if the user with the email alreay exists or not
+    const user = await userRepository.findById(userId);
+    if (!user) {
+      throw new Error("User not found.");
+    }
+
+    await userRepository.follow(userId, followUserId);
+
+    return user;
+  };
 
   return {
     issueToken,
@@ -100,6 +111,7 @@ const userService = () => {
     update,
     remove,
     login,
+    follow,
   };
 };
 

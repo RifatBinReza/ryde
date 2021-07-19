@@ -51,7 +51,7 @@ module.exports = (mongoose) => {
 
       password: {
         type: String,
-        required: true
+        required: true,
       },
 
       lastLogin: {
@@ -59,18 +59,14 @@ module.exports = (mongoose) => {
       },
       following: [
         {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "User",
-          },
+          type: String,
+          ref: "User",
         },
       ],
       followers: [
         {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "User",
-          },
+          type: String,
+          ref: "User",
         },
       ],
     },

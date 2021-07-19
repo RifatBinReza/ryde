@@ -88,12 +88,31 @@ const userController = () => {
     }
   };
 
+  const follow = async (req, res) => {
+    const userId = req.params.id;
+    const followUserId = req.body.follow_user_id;
+    
+    try {
+      const userData = await userService.follow(userId, followUserId);
+
+      return response.jsonSuccess(
+        res,
+        userData,
+        "Successfully followed user.",
+        200
+      );
+    } catch (error) {
+      return response.jsonError(res, error, error.message, 400);
+    }
+  };
+
   return {
     signup,
     login,
     get,
     update,
-    remove
+    remove,
+    follow
   };
 };
 

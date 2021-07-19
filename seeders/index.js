@@ -1,4 +1,5 @@
 const { models } = require("../models");
+const moment = require("moment");
 
 /**
  * Connect to the database instance
@@ -71,9 +72,17 @@ const seedDB = async () => {
     users.forEach(async (user) => {
       const existingUser = await models.user.findOne({email: user.email});
       if (!existingUser) {
+        //Hash the password and replace with the plain one before storing
+        const hashedPassword = await models.user.generatePasswordHash(
+          user.password
+        );
+        user.password = hashedPassword;
+
+        user.lastLogin = moment.utc().toDate();
+
         const address = await models.address.create(user.address);
         user.address = address._id;
-  
+
         await models.user.create(user);
       }
     })
