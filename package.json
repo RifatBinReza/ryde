@@ -1,0 +1,22 @@
+{
+  "name": "ryde",
+  "version": "1.0.0",
+  "description": "API design for ryde assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rifat Bin Reza",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "chalk": "^4.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3",
+    "uuid": "^8.3.2",
+    "validator": "^13.6.0"
+  }
+}
