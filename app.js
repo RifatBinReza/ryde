@@ -13,6 +13,7 @@ const errorHandler = require("errorhandler");
  * Require essentials like routes, models, controllers etc
  */
 const { connectDB } = require("./models");
+const { seedDB } = require("./seeders");
 const apiRoutes = require("./routes/api");
 
 
@@ -75,6 +76,7 @@ setupLogger();
  * Connect the database and start Express server.
  */
 connectDB(process.env.DATABASE_URL).then(() => {
+  seedDB();
   let server = app.listen(app.get("port"), () => {
     console.log(
       "%s App is running at %s:%d in %s mode",
