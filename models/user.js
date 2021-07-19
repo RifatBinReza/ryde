@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
 var validator = require("validator");
 
@@ -15,13 +16,18 @@ module.exports = (mongoose) => {
         required: true,
       },
 
+      username: {
+        type: String,
+        required: true,
+      },
+
       dob: {
         type: Date,
         required: true,
       },
 
       address: {
-        type: mongoose.Schema.ObjectId,
+        type: String,
         ref: "Address",
       },
 
@@ -45,7 +51,7 @@ module.exports = (mongoose) => {
 
       password: {
         type: String,
-        required: true,
+        required: true
       },
 
       lastLogin: {

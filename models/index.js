@@ -20,7 +20,8 @@ const connectDB = async (mongodbUrl) => {
  * Get all the models for exporting
  */
 const models = {
-  user: require("./user")(mongoose)
+  user: require("./user")(mongoose),
+  address: require("./address")(mongoose),
 };
 
 module.exports = { connectDB, models };

@@ -23,7 +23,7 @@ module.exports = (mongoose) => {
         required: true,
       },
 
-      loc: {
+      position: {
         type: { type: String },
         coordinates: [Number],
       },

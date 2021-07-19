@@ -12,7 +12,9 @@ const errorHandler = require("errorhandler");
  * Require essentials like routes, models, controllers etc
  */
 const { connectDB } = require("./models");
+const apiRoutes = require("./routes/api");
 
+const { verifyToken } = require("./middlewares/authentication");
 /**
  * Create Express server.
  */
@@ -38,7 +40,8 @@ app.use(
  * API Routes
  */
 // secure your private routes with jwt authentication middleware
-
+app.all("/api/secure/*", (req, res, next) => verifyToken(req, res, next));
+app.use("/api", apiRoutes);
 
 /**
  * Error Handler.
