@@ -21,10 +21,12 @@ const userService = () => {
     );
     data.password = hashedPassword;
 
+    data.lastLogin = moment.utc().toDate();
+
     const user = await userRepository.create(data);
 
     // remove users password
-    delete user.password;
+    user.password = null;
 
     const token = issueToken({ _id: user._id });
 
@@ -59,7 +61,9 @@ const userService = () => {
     await user.save();
 
     // remove users password
-    delete user.password;
+    user.password = null;
+    user.following = [];
+    user.followers = [];
 
     const token = issueToken({ _id: user._id });
 
