@@ -3,6 +3,7 @@
  */
 require("dotenv").config(); //Load environment variables to access from process.env
 const chalk = require("chalk");
+const colors = require("colors");
 const cors = require("cors");
 const express = require("express");
 // const bodyParser = require("body-parser");
@@ -13,6 +14,9 @@ const errorHandler = require("errorhandler");
  */
 const { connectDB } = require("./models");
 const apiRoutes = require("./routes/api");
+
+
+const setupLogger = require("./libs/logger");
 
 const { verifyToken } = require("./middlewares/authentication");
 /**
@@ -63,6 +67,9 @@ if (process.env.NODE_ENV === "development") {
     res.status(500).send("Server Error");
   });
 }
+
+colors.enable();
+setupLogger();
 
 /**
  * Connect the database and start Express server.

@@ -30,6 +30,8 @@ const userService = () => {
 
     const token = issueToken({ _id: user._id });
 
+    console.log("Signup user: ", user);
+
     return { user: user, token: token };
   }
 
@@ -41,6 +43,13 @@ const userService = () => {
     }
 
     const user = userRepository.update(data);
+
+    // remove users password
+    user.password = null;
+    user.following = [];
+    user.followers = [];
+
+    console.log("Updated user: ", user);
 
     return user;
   }
@@ -59,7 +68,7 @@ const userService = () => {
     // Set lastLogin timestamp
     user.lastLogin = moment.utc().toDate();
     await user.save();
-
+    console.log('Login user: ', user)
     // remove users password
     user.password = null;
     user.following = [];
