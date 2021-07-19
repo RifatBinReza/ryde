@@ -71,13 +71,34 @@ const userRepository = () => {
     return [];
   };
 
+  const nearby = async (userId) => {
+    const user = await findById(userId);
+
+    // return empty array if there's no following users
+    if(user.following.length < 1) {
+      return [];
+    }
+
+    const userAddress = await models.address.findOne({_id: user.address});
+
+    const lat = userAddress.position.coordinates[0];
+    const lng = userAddress.position.coordinates[1];
+    const maxDistanceInMeters = 5000;
+
+    // Here we can user haversine equation in the following users coordinations to find the nearby users within the max distance
+
+
+    return [];
+  };
+
   return {
     create,
     update,
     findByEmail,
     findById,
     remove,
-    follow
+    follow,
+    nearby
   };
 };
 

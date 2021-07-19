@@ -80,7 +80,7 @@ const userService = () => {
   }
 
   const remove = async (_id) => {
-    // First check if the user with the email alreay exists or not
+    // First check if the user with the id alreay exists or not
     const existingUser = await userRepository.findById(_id);
     if (!existingUser) {
       throw new Error("User not found.");
@@ -93,15 +93,25 @@ const userService = () => {
   };
   
   const follow = async (userId, followUserId) => {
-    // First check if the user with the email alreay exists or not
     const user = await userRepository.findById(userId);
     if (!user) {
       throw new Error("User not found.");
     }
 
-    await userRepository.follow(userId, followUserId);
+    const result = await userRepository.follow(userId, followUserId);
 
-    return user;
+    return result;
+  };
+  
+  const nearby = async (userId) => {
+    const user = await userRepository.findById(userId);
+    if (!user) {
+      throw new Error("User not found.");
+    }
+
+    const result = await userRepository.nearby(userId);
+
+    return result;
   };
 
   return {
@@ -112,6 +122,7 @@ const userService = () => {
     remove,
     login,
     follow,
+    nearby,
   };
 };
 

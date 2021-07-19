@@ -93,12 +93,29 @@ const userController = () => {
     const followUserId = req.body.follow_user_id;
     
     try {
-      const userData = await userService.follow(userId, followUserId);
+      const result = await userService.follow(userId, followUserId);
 
       return response.jsonSuccess(
         res,
-        userData,
+        result,
         "Successfully followed user.",
+        200
+      );
+    } catch (error) {
+      return response.jsonError(res, error, error.message, 400);
+    }
+  };
+
+  const nearby = async (req, res) => {
+    const userId = req.params.id;
+    
+    try {
+      const result = await userService.nearby(userId);
+
+      return response.jsonSuccess(
+        res,
+        result,
+        "Successfully fetched nearby users.",
         200
       );
     } catch (error) {
@@ -112,7 +129,8 @@ const userController = () => {
     get,
     update,
     remove,
-    follow
+    follow,
+    nearby
   };
 };
 
