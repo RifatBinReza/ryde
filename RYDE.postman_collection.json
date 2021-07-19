@@ -1,0 +1,250 @@
+{
+	"variables": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:4200"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		}
+	],
+	"info": {
+		"name": "RYDE",
+		"_postman_id": "c0462ae8-2f59-a5ab-969a-3a99bf255a79",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "Signup user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.data.token);\r",
+									"postman.setEnvironmentVariable(\"user_id\", jsonData.data.user._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{BASE_URL}}/api/signup",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Rifat\",\n\t\"username\": \"rifat\",\n\t\"password\": \"Test1234\",\n\t\"email\": \"rifatbinreza@gmail.com\",\n\t\"dob\": \"1990-10-05T14:48:00.000Z\",\n\t\"address\": {\n\t\t\"name\": \"Home\",\n\t\t\"line1\": \"03-04\",\n\t\t\"line2\": \"Serangoon Road\",\n\t\t\"position\": {\n\t\t\t\"coordinates\": [\n\t\t\t\t1.334743,\n\t\t\t\t103.859303\n\t\t\t]\n\t\t}\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.data.token);\r",
+									"postman.setEnvironmentVariable(\"user_id\", jsonData.data.user._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{BASE_URL}}/api/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"rifatbinreza@gmail.com\",\n\t\"password\": \"Test1234\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"url": {
+							"raw": "{{BASE_URL}}/api/secure/users/{{user_id}}?token={{token}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"secure",
+								"users",
+								"{{user_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Rifat Bin Reza\",\n\t\"username\": \"rifat\",\n\t\"email\": \"rifatbinreza@gmail.com\",\n\t\"dob\": \"1990-10-05T14:48:00.000Z\",\n\t\"address\": {\n\t\t\"name\": \"Home\",\n\t\t\"line1\": \"03-05\",\n\t\t\"line2\": \"Serangoon Road\",\n\t\t\"position\": {\n\t\t\t\"coordinates\": [\n\t\t\t\t1.334743,\n\t\t\t\t103.859303\n\t\t\t]\n\t\t}\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"url": {
+							"raw": "{{BASE_URL}}/api/secure/users/{{user_id}}?token={{token}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"secure",
+								"users",
+								"{{user_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Bearer token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJhMmU4YTIyYy0yYWI1LTQ5NmItYjZiZS1hMjJlNTZkM2ZiYzQiLCJpYXQiOjE2MjY2ODYyMzUsImV4cCI6MTYyNzI5MTAzNX0.afsp7wcSBvhBKYxD3n8zubvq7MyXHMdIB5kR-wqocFQ",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Follow user",
+					"request": {
+						"url": {
+							"raw": "{{BASE_URL}}/api/secure/users/{{user_id}}/follow?token={{token}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"secure",
+								"users",
+								"{{user_id}}",
+								"follow"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"follow_user_id\": \"cdd4d0e9-9932-4a0e-a1c9-896f6ca7e967\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get nearby",
+					"request": {
+						"url": {
+							"raw": "{{BASE_URL}}/api/secure/users/{{user_id}}/nearby?token={{token}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"secure",
+								"users",
+								"{{user_id}}",
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
