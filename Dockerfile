@@ -1,21 +1,25 @@
-FROM node:14
-
-# Create an application directory
-RUN mkdir -p /app
-
-# The /app directory should act as the main application directory
+FROM node:lts AS base
 WORKDIR /app
+COPY package.json /app/
 
-# Copy the app package and package-lock.json file
-COPY ./package*.json ./
+# developmentDependencies
+FROM base AS dependencies
+WORKDIR /app
+RUN npm install --loglevel=error
 
-# Install node packages
-RUN npm install
-RUN npm audit fix --force
-
-# Copy or project directory (locally) in the current directory of our docker image (/app)
-COPY . .
-
-# Expose $PORT on container.
-# We use a varibale here as the port is something that can differ on the environment.
-EXPOSE 3000
+# development
+FROM dependencies AS development
+# ENV variables are available to the running conatiners
+ARG NODE_ENV=development
+ENV NODE_ENV $NODE_ENV
+# mongodb url
+ARG DATABASE_URL=mongodb://mongodb:27017/ryde
+ENV DATABASE_URL $DATABASE_URL
+# node will be listening in this port 
+ARG PORT=4200
+ENV PORT $PORT
+#COPY . /app/
+COPY --from=dependencies /app/node_modules /app/node_modules
+WORKDIR /app
+# When container starts it will run the npm local script 
+CMD ["./wait-for-it.sh", "mongodb:27017", "--", "npm", "run", "dev"]

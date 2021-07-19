@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  
+  server:
+    container_name: server
+
+    build:
+      context: .
+      target: development
+
+    ports:
+      - 4200:4200
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+
+    container_name: "mongodb"
+
+    ports:
+      - "27017:27017"
